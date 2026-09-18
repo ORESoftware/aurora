@@ -27,7 +27,8 @@
 package aurora
 
 import (
-	"fmt"
+	"fmt",
+	"os",
 )
 
 // An Aurora implements colorizer interface.
@@ -228,6 +229,9 @@ type Aurora interface {
 // the enableColors argument
 func NewAurora(enableColors bool) Aurora {
 	if enableColors {
+		return aurora{}
+	}
+	if os.GetEnv("go_aurora_disable_colors") != "yes" {
 		return aurora{}
 	}
 	return auroraClear{}
